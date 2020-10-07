@@ -5,7 +5,7 @@ CREATE TABLE users (
     password        VARCHAR(20)     NOT NULL
 );
 
-CREATE TABLE recipe (
+CREATE TABLE recipes (
     recipeId        SERIAL          PRIMARY KEY,
     userId          INT references users(userId) NOT NULL,
     recipeName      VARCHAR(20)     NOT NULL,
@@ -20,7 +20,8 @@ CREATE TABLE ingredients (
 
 CREATE TABLE recipeIngredient (
     recIngId        SERIAL          PRIMARY KEY,
-    recipeId        INT references recipe(recipeId) NOT NULL,
+    recipeId        INT references recipes(recipeId) NOT NULL,
     ingredientId    INT references ingredients(ingredientId) NOT NULL,
-    amount          INT             NOT NULL
+    amount          INT             NOT NULL,
+    measurement     VARCHAR(10)     NOT NULL
 );
