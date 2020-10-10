@@ -8,12 +8,14 @@ if ($action == NULL) {
 }
 
 switch ($action) {
-    case 'browse':
-        include $_SERVER['DOCUMENT_ROOT'].'/view/browse.php';
+    case 'login':
+        include $_SERVER['DOCUMENT_ROOT'].'/view/login.php';
         break;
     case 'create':
         break;
     case 'delete':
+        break;
+    case 'update':
         break;
     default:
         header('Location: /view/error.php');

@@ -14,6 +14,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark red-back">
         <?php include $_SERVER['DOCUMENT_ROOT'] . '/common/nav.php'; ?>
     </nav>
+
+    <h1>ERROR: 404</h1>
+    <p>An error occured, sorry. We will try to fix this in the future.</p>
 </body>
 
 <footer class="footer mt-auto py-3">
