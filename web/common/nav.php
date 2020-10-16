@@ -5,12 +5,12 @@
 
   <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
+          <li class="nav-item">
               <a class="nav-link" href="/index.php">Home</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="/recipe/index.php?action=browse">Browse Recipes</a>
           </li>
       </ul>
-      <a class="text-light" href="/account/index.php?action=login">Login</a>
+      <a class="text-light" href="/users/index.php?action=login">Login</a>
   </div>

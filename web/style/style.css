@@ -1,6 +1,16 @@
 /* Global CSS Commands ----------------------------------------------------- */
+.margin-top {
+    margin-top: 2rem;
+}
+
 
 /* Navbar ------------------------------------------------------------------ */
 .red-back {
     background-color: #b30000;
+}
+
+/* Cards ------------------------------------------------------------------- */
+.card-space-sides {
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
