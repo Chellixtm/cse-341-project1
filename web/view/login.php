@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/style/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 </head>
 
 <body>
@@ -23,10 +24,10 @@
                         echo "<div class='alert alert-danger' role='alert'>$message</div>";
                     }
                 ?>
-                <form action="/user/index.php" method="post">
+                <form action="/users/index.php" method="post">
                     <input type="text" id="username" name="username" placeholder="Username"><br><br>
                     <input type="password" id="password" name="password" placeholder="Password"><br><br>
-                    <input type="hidden" name="action" value="login">
+                    <input type="hidden" name="action" value="loginUser">
                     <input type="submit" name="submit" value="Login" id="login">
                 </form>
                 <hr>

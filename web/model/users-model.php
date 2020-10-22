@@ -9,10 +9,10 @@ function getAllUsers() {
     return $users;
 }
 
-function getUser($userId) {
+function getUser($username) {
     $db = recipeConnect();
-    $stmt = $db->prepare('SELECT * FROM users WHERE userId = :userid');
-    $stmt->bindValue(':userid', $userId);
+    $stmt = $db->prepare('SELECT * FROM users WHERE username = :username');
+    $stmt->bindValue(':username', $username);
     $stmt->execute();
     $user = $stmt->fetch();
     $stmt->closeCursor();

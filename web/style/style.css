@@ -5,8 +5,18 @@
 
 
 /* Navbar ------------------------------------------------------------------ */
+.icon-rounded {
+    border-radius: 10%;
+}
 .red-back {
     background-color: #b30000;
+}
+
+/* Home page --------------------------------------------------------------- */
+.jumbo-cheese {
+    background-image: url("/images/banner.png");
+    background-size: cover;
+    background-position: center;
 }
 
 /* Cards ------------------------------------------------------------------- */

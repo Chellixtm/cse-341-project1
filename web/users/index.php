@@ -19,14 +19,38 @@ switch ($action) {
         $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-        if(empty($username) || $empty($password)) {
-            $message = '<p>Please fill in all field.</p>';
+        if(empty($username) || empty($password)) {
+            $message = 'Please fill in all fields.';
             include $_SERVER['DOCUMENT_ROOT'].'/view/login.php';
             exit;
             break;
         }
 
-        
+        $userData = getUser($username);
+
+        $passwordCheck = password_verify($password, $userData['password']);
+
+        if(!$passwordCheck) {
+            $message = 'Please check your password and try again.';
+            include $_SERVER['DOCUMENT_ROOT'].'/view/login.php';
+            exit;
+            break;
+        }
+
+        unset($userData['password']);
+
+        $_SESSION['loggedin'] = true;
+        $_SESSION['userData'] = $userData;
+
+        setcookie('username', $_SESSION['userData']['username'], strtotime('+1 week'), '/');
+
+        header('Location: /index.php');
+        break;
+    case 'logout':
+        $_COOKIE['username'] = NULL;
+        $_SESSION = array();
+        session_destroy();
+        header('Location: /index.php');
         break;
     case 'createPage':
         break;

@@ -1,9 +1,9 @@
 INSERT INTO users VALUES 
-(DEFAULT, 'mitch', 'mitch.hudson18@gmail.com', 'choo53th3r1ght');
+(DEFAULT, 'mitch', 'mitch.hudson18@gmail.com', '$2y$10$yhMEJERjpgSy9Ums6/tEoeqwnB6mw4vPG1otdAJwCqqZqK.aLt8da');
 INSERT INTO users VALUES 
-(DEFAULT, 'admin', 'mhudsontech@gmail.com', 'admin');
+(DEFAULT, 'admin', 'mhudsontech@gmail.com', '$2y$10$8Hk1fL7ULUnks5hG1njzY.vQZV38JFRWvy0lMVQjzQ.2QeOgKpi7u');
 INSERT INTO users VALUES
-(DEFAULT, 'lina', 'example@gmail.com', '4ever');
+(DEFAULT, 'lina', 'example@gmail.com', '$2y$10$82Q1tCUOPgPjDlYBg4yrvuQRx4SHEXaOl2P4yYcOEmgRDXsHdenV.');
 
 INSERT INTO recipes VALUES
 (DEFAULT, 1, 'Mac and Cheese', 'How to make Mac and Cheese', 'This is sample text for where the recipe instructions will go.');
