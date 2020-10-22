@@ -45,9 +45,13 @@ switch ($action) {
 
         include $_SERVER['DOCUMENT_ROOT'].'/view/browse.php';
         break;
-    case 'create':
+    case 'createPage':
         break;
-    case 'delete':
+    case 'createRecipe':
+        break;
+    case 'deletePage':
+        break;
+    case 'deleteRecipe':
         break;
     default:
         header('Location: /view/error.php');

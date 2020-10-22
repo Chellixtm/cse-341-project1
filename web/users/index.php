@@ -12,25 +12,32 @@ if ($action == NULL) {
 }
 
 switch ($action) {
-    case 'login':
-        $users = getAllUsers();
-        $userDisplay = '';
+    case 'loginPage':
+        include $_SERVER['DOCUMENT_ROOT'].'/view/login.php';
+        break;
+    case 'loginUser':
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-        if (!empty($users)) {
-            $userDisplay .= buildUsersDisplay($users);
-        } else {
-            $errorMsg = '<h1>ERROR, NO USERS</h1>';
-            include $_SERVER['DOCUMENT_ROOT'] . '/view/error.php';
+        if(empty($username) || $empty($password)) {
+            $message = '<p>Please fill in all field.</p>';
+            include $_SERVER['DOCUMENT_ROOT'].'/view/login.php';
+            exit;
             break;
         }
 
-        include $_SERVER['DOCUMENT_ROOT'].'/view/login.php';
+        
         break;
-    case 'create':
+    case 'createPage':
+        break;
+    case 'createUser':
         break;
     case 'delete':
         break;
     case 'update':
+        break;
+    case 'userDetails':
+        include $_SERVER['DOCUMENT_ROOT'].'/view/userDetails.php';
         break;
     default:
         header('Location: /view/error.php');

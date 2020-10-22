@@ -11,6 +11,21 @@
           <li class="nav-item">
               <a class="nav-link" href="/recipe/index.php?action=browse">Browse Recipes</a>
           </li>
+          <?php 
+            if(isset($_SESSION['loggedin'])) {
+                echo <<<EOL
+                <li class="nav-item">
+                    <a class="nav-link" href="/recipe/index.php?action=createPage">Create Recipe</a>
+                </li>
+                EOL;
+            }
+          ?>
       </ul>
-      <a class="text-light" href="/users/index.php?action=login">Login</a>
+      <?php
+      if(isset($_SESSION['loggedin']) && isset($cookieUserName)) {
+        echo "<a class='text-light' href='/users/index.php?action=userDetails'>$cookieUserName</a>";
+      } else {
+        echo "<a class='text-light' href='/users/index.php?action=loginPage'>Login</a>";
+      }
+      ?>
   </div>
