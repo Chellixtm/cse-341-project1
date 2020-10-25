@@ -15,6 +15,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark red-back">
         <?php include $_SERVER['DOCUMENT_ROOT'] . '/common/nav.php'; ?>
     </nav>
+    
     <div class="container margin-top login-window">
         <div class="card text-center">
             <div class="card-body">
@@ -22,6 +23,9 @@
                 <?php 
                     if(isset($message)) {
                         echo "<div class='alert alert-danger' role='alert'>$message</div>";
+                    }
+                    if(isset($success)) {
+                        echo "<div class='alert alert-success' role='alert'>$success</div>";
                     }
                 ?>
                 <form action="/users/index.php" method="post">

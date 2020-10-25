@@ -25,29 +25,29 @@
     <div class="container margin-top signup-window">
         <div class="card text-center">
             <div class="card-body">
-                <h1 class="card-title">Account Details</h1><br>
+                <h1 class="card-title">Edit Account</h1><br>
                 <?php 
                     if(isset($message)) {
                         echo "<div class='alert alert-danger' role='alert'>$message</div>";
                     }
-                    if(isset($success)) {
-                        echo "<div class='alert alert-success' role='alert'>$success</div>";
-                    }
                 ?>
-                <p class="card-text"><b>Username:</b> <?=$_SESSION['userData']['username']?><br><br>
-                <b>E-Mail:</b> <?=$_SESSION['userData']['email']?></p>
-                <form action="/users/index.php" method="get" class="d-inline">
-                    <input type="hidden" name="action" value="updateUserPage">
-                    <input type="submit" name="submit" value="Edit Account" id="editAccount" class="btn btn-primary">
-                </form>
-                <form action="/users/index.php" method="get" class="d-inline">
-                    <input type="hidden" name="action" value="deleteUserPage">
-                    <input type="submit" name="submit" value="Delete Account" id="deleteAccount" class="btn btn-danger">
-                </form>
+                <form action="/users/index.php" method="post">
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" name="username" value="<?=$_SESSION['userData']['username']?>"><br><br>
 
-                <?php 
-                    // TODO: write code to display recipes created by the user.
-                ?>
+                    <label for="email">E-Mail Address:</label><br>
+                    <input type="email" id="email" name="email" value="<?=$_SESSION['userData']['email']?>"><br><br>
+
+                    <label for="password">Password:</label><br>
+                    <p class="card-text">Entering A Password here Will change your password. Leave blank to keep the password the same.</p>
+                    <p><small class="text-muted">*Password must be at least 5 characters and not more than 20.</small></p>
+                    <input type="password" id="password" name="password" placeholder="New Password" minlength="5" maxlength="20"><br><br>
+
+                    <input type="hidden" name="userId" value="<?=$_SESSION['userData']['userid']?>">
+                    <input type="hidden" name="action" value="updateUser">
+                    <input type="submit" name="submit" value="Update Account" id="updateUser" class="btn btn-primary">
+                    <a href="/users/index.php?action=userDetails" class="btn btn-danger">Cancel</a>
+                </form>
             </div>
         </div>
     </div>

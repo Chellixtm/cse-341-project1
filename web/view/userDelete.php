@@ -25,29 +25,19 @@
     <div class="container margin-top signup-window">
         <div class="card text-center">
             <div class="card-body">
-                <h1 class="card-title">Account Details</h1><br>
+                <h1 class="card-title">Are you Sure?</h1><br>
                 <?php 
                     if(isset($message)) {
                         echo "<div class='alert alert-danger' role='alert'>$message</div>";
                     }
-                    if(isset($success)) {
-                        echo "<div class='alert alert-success' role='alert'>$success</div>";
-                    }
                 ?>
-                <p class="card-text"><b>Username:</b> <?=$_SESSION['userData']['username']?><br><br>
-                <b>E-Mail:</b> <?=$_SESSION['userData']['email']?></p>
-                <form action="/users/index.php" method="get" class="d-inline">
-                    <input type="hidden" name="action" value="updateUserPage">
-                    <input type="submit" name="submit" value="Edit Account" id="editAccount" class="btn btn-primary">
-                </form>
-                <form action="/users/index.php" method="get" class="d-inline">
-                    <input type="hidden" name="action" value="deleteUserPage">
+                <p class="card-text">If you are sure you want to delete your account, please enter your password.</p>
+                <form action="/users/index.php" method="post">
+                    <input type="password" name="password" id="password" placeholder="Enter Password">
+                    <input type="hidden" name="userid" value="<?=$_SESSION['userData']['userid']?>">
+                    <input type="hidden" name="action" value="deleteUser">
                     <input type="submit" name="submit" value="Delete Account" id="deleteAccount" class="btn btn-danger">
                 </form>
-
-                <?php 
-                    // TODO: write code to display recipes created by the user.
-                ?>
             </div>
         </div>
     </div>

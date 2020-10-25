@@ -19,6 +19,55 @@ function getAllRecipeIngredient() {
     return $recipeIngredients;
 }
 
+function getRecipeIngredients($recipeId) {
+    $db = recipeConnect();
+    $sql = 'SELECT recipeIngredient.*, ingredients.name FROM recipeIngredient INNER JOIN ingredients ON recipeIngredient.ingredientId = ingredients.ingredientId WHERE recipeIngredient.recipeid = :recipeid';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':recipeid', $recipeId);
+    $stmt->execute();
+    $recipeIngredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $recipeIngredients;
+}
+
+function insertIngredients($recipeId, $ingredients) {
+    $db = recipeConnect();
+    $result = array();
+    foreach($ingredients as $i) {
+        $stmt = $db->prepare('SELECT COUNT(*) FROM ingredients WHERE name = :name');
+        $stmt->bindValue(':name', $i['name']);
+        $stmt->execute();
+        $count = $stmt->fetch();
+        $stmt->closeCursor();
+
+        if ($count['count'] === 0) {
+            $stmt2 = $db->prepare('INSERT INTO ingredients (name) VALUES (:name)');
+            $stmt2->bindValue(':name', $i['name']);
+            $stmt2->execute();
+            $stmt2->closeCursor();
+        }
+
+
+        $stmt4 = $db->prepare('SELECT * FROM ingredients WHERE name = :name');
+        $stmt4->bindValue(':name', $i['name']);
+        $stmt4->execute();
+        $ingredientId = $stmt4->fetch()['ingredientid'];
+        $stmt4->closeCursor();
+        
+
+        $stmt3 = $db->prepare('INSERT INTO recipeIngredient (recipeId, ingredientId, amount, measurement) VALUES (:recipeid, :ingredientid, :amount, :measurement)');
+        $stmt3->bindValue(':recipeid', $recipeId);
+        $stmt3->bindValue(':ingredientid', $ingredientId);
+        $stmt3->bindValue(':amount', $i['amount']);
+        $stmt3->bindValue(':measurement', $i['measurement']);
+        $stmt3->execute();
+        $insertResult = $stmt3->rowCount();
+        array_push($result, $insertResult);
+        $stmt3->closeCursor();
+    }
+    return $result;
+}
+
 function buildIngredientsDisplay($ingredients) {
     $build = "<div class='container margin-top'>";
     $build .= "<div class='row'>";

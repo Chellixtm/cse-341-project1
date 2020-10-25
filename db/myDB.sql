@@ -25,3 +25,10 @@ CREATE TABLE recipeIngredient (
     amount          INT             NOT NULL,
     measurement     VARCHAR(10)     NOT NULL
 );
+
+alter table recipeIngredient
+drop constraint recipeingredient_recipeid_fkey,
+add constraint recipeingredient_recipeid_fkey
+   foreign key (recipeId)
+   references recipes(recipeId)
+   on delete cascade;

@@ -19,6 +19,30 @@ function getUser($username) {
     return $user;
 }
 
+function checkUserExist($username) {
+    $db = recipeConnect();
+    $stmt = $db->prepare('SELECT username FROM users WHERE username = :username');
+    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    $matchUser = $stmt->fetch();
+    $stmt->closeCursor();
+    if(empty($matchUser)) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+function checkPassword($userId, $password) {
+    $db = recipeConnect();
+    $stmt = $db->prepare('SELECT password FROM users WHERE userId = :userid');
+    $stmt->bindValue(':userid', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $dbPass = $stmt->fetch();
+    $stmt->closeCursor();
+    return password_verify($password, $dbPass['password']);
+}
+
 function insertUser($username, $email, $password) {
     $db = recipeConnect();
     $stmt = $db->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
@@ -26,20 +50,36 @@ function insertUser($username, $email, $password) {
     $stmt->bindValue(':email', $email);
     $stmt->bindValue(':password', $password);
     $stmt->execute();
+    $result = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $result;
 }
 
 function updateUser($userId, $username, $email, $password) {
     $db = recipeConnect();
-    $stmt = $db->prepare('UPDATE users SET
-    username = :username,
-    email = :email,
-    password = :password
-    WHERE userId = :userid');
-    $stmt->bindValue(':userid', $userId);
-    $stmt->bindValue(':username', $username);
-    $stmt->bindValue(':email', $email);
-    $stmt->bindValue(':password', $password);
+    if(empty($password)) {
+        $stmt = $db->prepare('UPDATE users SET
+        username = :username,
+        email = :email
+        WHERE userId = :userid');
+        $stmt->bindValue(':userid', $userId);
+        $stmt->bindValue(':username', $username);
+        $stmt->bindValue(':email', $email);
+    } else {
+        $stmt = $db->prepare('UPDATE users SET
+        username = :username,
+        email = :email,
+        password = :password
+        WHERE userId = :userid');
+        $stmt->bindValue(':userid', $userId);
+        $stmt->bindValue(':username', $username);
+        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':password', $password);
+    }
     $stmt->execute();
+    $result = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $result;
 }
 
 function deleteUser($userId) {
@@ -47,6 +87,9 @@ function deleteUser($userId) {
     $stmt = $db->prepare('DELETE FROM users WHERE userId = :userid');
     $stmt->bindValue(':userid', $userId);
     $stmt->execute();
+    $result = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $result;
 }
 
 function buildUsersDisplay($users) {

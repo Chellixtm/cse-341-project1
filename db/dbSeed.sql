@@ -18,6 +18,12 @@ INSERT INTO ingredients VALUES
 (DEFAULT, 'Dough');
 INSERT INTO ingredients VALUES
 (DEFAULT, 'Russet');
+INSERT INTO ingredients VALUES
+(DEFAULT, 'Shredded Cheddar');
+INSERT INTO ingredients VALUES
+(DEFAULT, 'Pepperoni');
+INSERT INTO ingredients VALUES
+(DEFAULT, 'Milk');
 
 INSERT INTO recipeIngredient VALUES
 (DEFAULT, 1, 1, 2, 'cups');
@@ -25,3 +31,13 @@ INSERT INTO recipeIngredient VALUES
 (DEFAULT, 2, 2, 1, 'package');
 INSERT INTO recipeIngredient VALUES
 (DEFAULT, 3, 3, 5, 'potatos');
+INSERT INTO recipeIngredient VALUES
+(DEFAULT, 1, 4, 2, 'cups');
+INSERT INTO recipeIngredient VALUES
+(DEFAULT, 2, 5, 30, 'pieces');
+INSERT INTO recipeIngredient VALUES
+(DEFAULT, 3, 6, 1, 'half cup');
+INSERT INTO recipeIngredient VALUES
+(DEFAULT, 3, 4, 1, 'cups');
+INSERT INTO recipeIngredient VALUES
+(DEFAULT, 2, 4, 1, 'cups');
