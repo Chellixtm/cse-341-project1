@@ -19,6 +19,16 @@ function getUser($username) {
     return $user;
 }
 
+function getUserRecipes($userId) {
+    $db = recipeConnect();
+    $stmt = $db->prepare('SELECT * FROM recipes WHERE userId = :userid');
+    $stmt->bindValue(":userid", $userId);
+    $stmt->execute();
+    $recipes = $stmt->fetchAll();
+    $stmt->closeCursor();
+    return $recipes;
+}
+
 function checkUserExist($username) {
     $db = recipeConnect();
     $stmt = $db->prepare('SELECT username FROM users WHERE username = :username');

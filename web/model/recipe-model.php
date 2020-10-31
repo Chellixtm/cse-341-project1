@@ -45,19 +45,18 @@ function insertRecipe($userId, $recipeName, $recipeDesc, $recipeInstruct)
     return $result;
 }
 
-function updateRecipe($userId, $recipeName, $recipeDesc, $recipeInstruct)
+function updateRecipe($recipeId, $recipeName, $recipeDesc, $recipeInstruct)
 {
     $db = recipeConnect();
     $stmt = $db->prepare('UPDATE recipes SET 
-                            userId = :userid, 
                             recipeName = :recipename, 
                             recipeDesc = :recipedesc, 
-                            recipeInstruct = :recipeInstruct 
+                            recipeInstruct = :recipeinstruct 
                             WHERE recipeId = :recipeid');
-    $stmt->bindValue(':userid', $userId);
     $stmt->bindValue(':recipename', $recipeName);
-    $stmt->bindValue(':recipeDesc', $recipeDesc);
+    $stmt->bindValue(':recipedesc', $recipeDesc);
     $stmt->bindValue(':recipeinstruct', $recipeInstruct);
+    $stmt->bindValue(':recipeid', $recipeId);
     $stmt->execute();
 }
 
@@ -81,7 +80,7 @@ function buildBrowseDisplay() {
     $build .= "<div class='row row-col-3'>";
     foreach ($recipes as $r) {
         // TODO: Write code for building recipe cards
-        $build .= "<div class='col'>";
+        $build .= "<div class='col' style='margin-bottom: 2rem;'>";
         $build .= "<a href='/recipe/index.php?action=recipeDetail&recipeid=$r[recipeid]' class='remove-link-style'>";
         $build .= "<div class='card card-space-sides card-same-height' style='width: 18rem;'>";
         $build .= "<div class='card-body shadow card-background-highlight'>";

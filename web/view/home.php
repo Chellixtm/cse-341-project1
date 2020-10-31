@@ -37,8 +37,37 @@
             <a class="btn btn-primary btn-lg" href="/recipe/index.php?action=createPage" role="button">Create New Recipe</a>
             EOL;
         }
+        echo "</div>";
+
+        $db = recipeConnect();
+        $sql = 'SELECT recipes.*, users.username FROM recipes INNER JOIN users ON recipes.userid = users.userid ORDER BY userId DESC LIMIT 3';
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        echo "<h2 class='text-center'>Look at what's new!</h2>";
+        echo "<div class='container margin-top'>";
+        echo "<div class='row'>";
+        foreach ($recipes as $r) {
+            // TODO: Write code for building recipe cards
+            echo <<<EOL
+            <div class='col'>
+            <a href='/recipe/index.php?action=recipeDetail&recipeid=$r[recipeid]' class='remove-link-style'>
+            <div class='card card-space-sides card-same-height' style='width: 18rem;'>
+            <div class='card-body shadow card-background-highlight'>
+            <h5 class='card-title'>$r[recipename]</h5>
+            <h6 class='card-subtitle mb-2 text-muted'>Created By: $r[username]</h6>
+            <p class='card-text'>$r[recipedesc]</p>
+            </div>
+            </div>
+            </a>
+            </div>
+            EOL;
+        }
+        echo "</div>";
+        echo "</div>";
         ?>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

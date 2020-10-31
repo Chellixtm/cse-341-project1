@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    let i = 1;
+    let i = $('input.rowcount').length ? $('input.rowcount').attr('id') : 1;
     $('#addInput').click(() => {
         try {
             i++;

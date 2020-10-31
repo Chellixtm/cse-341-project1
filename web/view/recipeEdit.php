@@ -25,35 +25,45 @@
     <div class="container margin-top">
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title">Create New Recipe</h1><br>
-                <?php 
-                    if(isset($message)) {
-                        echo "<div class='alert alert-danger' role='alert'>$message</div>";
-                    }
+                <h1 class="card-title">Edit <?= $recipe['recipename'] ?></h1><br>
+                <?php
+                if (isset($message)) {
+                    echo "<div class='alert alert-danger' role='alert'>$message</div>";
+                }
                 ?>
                 <form action="/recipe/index.php" method="post">
                     <label for="recipeName">Recipe Name:</label><br>
-                    <input type="text" id="recipeName" name="recipeName" placeholder="Recipe Name"><br><br>
+                    <input type="text" id="recipeName" name="recipeName" value="<?= $recipe['recipename'] ?>"><br><br>
 
                     <label for="description">Short Description:<small class="text-muted">*50 character limit</small></label><br>
-                    <textarea id="description" name="description" class="recipe-textarea-size" maxlength="50" placeholder="Short description here..."></textarea><br><br>
+                    <textarea id="description" name="description" class="recipe-textarea-size" maxlength="50"><?= $recipe['recipedesc']?></textarea><br><br>
 
                     <p>Ingredients:</p>
-                    <table class="table table-borderless" id="ingredientsTable">
-                        <tr id="row1">
-                            <td>Ingredient: <input type="text" name="ingredient[1][name]"></td>
-                            <td>Quantity: <input type="number" name="ingredient[1][amount]"></td>
-                            <td>Measurement: <input type="text" name="ingredient[1][measurement]"></td>
+                    <?php
+                    echo '<table class="table table-borderless" id="ingredientsTable">';
+                    $i = 0;
+                    foreach ($recipeIngredients as $ri) {
+                        $i++;
+                        echo <<<EOL
+                        <tr id="row$i">
+                            <td>Ingredient: <input type="text" name="ingredient[$i][name]" value="$ri[name]"></td>
+                            <td>Quantity: <input type="number" name="ingredient[$i][amount]" value="$ri[amount]"></td>
+                            <td>Measurement: <input type="text" name="ingredient[$i][measurement]" value="$ri[measurement]"></td>
+                            <td><button name="remove" id="$i" class="btn btn-danger btnRemove">X</button></td>
                         </tr>
-                    </table>
+                        EOL;
+                    }
+                    echo '</table>';
+                    echo "<input type='hidden' name='rowcount' class='rowcount' id='$i'>"
+                    ?>
                     <button type="button" name="addInput" id="addInput" class="btn btn-success">Add Another Ingredient</button><br><br>
 
                     <label for="instructions">Instructions:</label><br>
-                    <textarea id="instructions" name="instructions" class="recipe-textarea-size" placeholder="Instructions here..."></textarea><br><br>
+                    <textarea id="instructions" name="instructions" class="recipe-textarea-size"><?= $recipe['recipeinstruct'] ?></textarea><br><br>
 
-                    <input type="hidden" name="userId" value="<?=$_SESSION['userData']['userid']?>">
-                    <input type="hidden" name="action" value="createRecipe">
-                    <input type="submit" name="submit" value="Create!" id="createRecipe" class="btn btn-primary">
+                    <input type="hidden" name="recipeId" value="<?= $recipe['recipeid'] ?>">
+                    <input type="hidden" name="action" value="editRecipe">
+                    <input type="submit" name="submit" value="Update" id="editRecipe" class="btn btn-primary">
                 </form>
             </div>
         </div>

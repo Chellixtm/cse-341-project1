@@ -18,19 +18,36 @@
     <div class="container margin-top signup-window">
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title"><?=$recipe['recipename']?></h3>
-                <h6 class="card-subtitle mb-2 text-muted">Created By: <?=$recipe['username']?></h6><br>
+                <?php
+                if (isset($_SESSION['loggedin']) && $_SESSION['userData']['userid'] == $recipe['userid']) {
+                    echo <<<EOL
+                        <div class="options">
+                        <button class="btn btn-primary dropdown-toggle float-right" type="button" id="recipeOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Options
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="recipeOptions">
+                            <a class="dropdown-item" href="/recipe/index.php?action=editPage&recipeid=$recipe[recipeid]">Edit</a>
+                            <a class="dropdown-item" href="/recipe/index.php?action=deletePage&recipeid=$recipe[recipeid]">Delete</a>
+                        </div>
+                    </div>
+                    EOL;
+                }
+                ?>
+                <h3 class="card-title"><?= $recipe['recipename'] ?></h3>
+                <h6 class="card-subtitle mb-2 text-muted">Created By: <?= $recipe['username'] ?></h6><br>
                 <ul class="list-unstyled">
-                    <li><h4>Ingredients:</h4></li>
-                    <?php 
-                        foreach($recipeIngredients as $ri) {
-                            echo "<li>$ri[amount] $ri[measurement] $ri[name]</li>";
-                        }
+                    <li>
+                        <h4>Ingredients:</h4>
+                    </li>
+                    <?php
+                    foreach ($recipeIngredients as $ri) {
+                        echo "<li>$ri[amount] $ri[measurement] $ri[name]</li>";
+                    }
                     ?>
                 </ul>
                 <br>
                 <h4>Instructions:</h4>
-                <p class="card-text"><?=$recipe['recipeinstruct']?></p>
+                <p class="card-text"><?= $recipe['recipeinstruct'] ?></p>
             </div>
         </div>
     </div>

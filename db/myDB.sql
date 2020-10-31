@@ -32,3 +32,24 @@ add constraint recipeingredient_recipeid_fkey
    foreign key (recipeId)
    references recipes(recipeId)
    on delete cascade;
+
+alter table recipes
+add constraint recipes_userid_fkey
+   foreign key (userId)
+   references users(userId)
+   on delete cascade;
+   
+SELECT con.*
+       FROM pg_catalog.pg_constraint con
+            INNER JOIN pg_catalog.pg_class rel
+                       ON rel.oid = con.conrelid
+            INNER JOIN pg_catalog.pg_namespace nsp
+                       ON nsp.oid = connamespace
+       WHERE rel.relname = 'recipes';
+
+SELECT i.name 
+	FROM recipeIngredient ri 
+	INNER JOIN ingredients i ON ri.ingredientId = i.ingredientId
+	INNER JOIN recipes r on ri.recipeId = r.recipeId
+	WHERE
+	ri.recipeId = 1;

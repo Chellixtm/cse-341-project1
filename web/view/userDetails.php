@@ -1,8 +1,8 @@
 <?php
-    if(!isset($_SESSION['loggedin'])) {
-        header('Location: /index.php');
-        exit;
-    }
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: /index.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,16 +26,16 @@
         <div class="card text-center">
             <div class="card-body">
                 <h1 class="card-title">Account Details</h1><br>
-                <?php 
-                    if(isset($message)) {
-                        echo "<div class='alert alert-danger' role='alert'>$message</div>";
-                    }
-                    if(isset($success)) {
-                        echo "<div class='alert alert-success' role='alert'>$success</div>";
-                    }
+                <?php
+                if (isset($message)) {
+                    echo "<div class='alert alert-danger' role='alert'>$message</div>";
+                }
+                if (isset($success)) {
+                    echo "<div class='alert alert-success' role='alert'>$success</div>";
+                }
                 ?>
-                <p class="card-text"><b>Username:</b> <?=$_SESSION['userData']['username']?><br><br>
-                <b>E-Mail:</b> <?=$_SESSION['userData']['email']?></p>
+                <p class="card-text"><b>Username:</b> <?= $_SESSION['userData']['username'] ?><br><br>
+                    <b>E-Mail:</b> <?= $_SESSION['userData']['email'] ?></p>
                 <form action="/users/index.php" method="get" class="d-inline">
                     <input type="hidden" name="action" value="updateUserPage">
                     <input type="submit" name="submit" value="Edit Account" id="editAccount" class="btn btn-primary">
@@ -45,8 +45,40 @@
                     <input type="submit" name="submit" value="Delete Account" id="deleteAccount" class="btn btn-danger">
                 </form>
 
-                <?php 
-                    // TODO: write code to display recipes created by the user.
+                <?php
+                if (!empty($userRecipes)) {
+                    $i = 1;
+                    echo <<<EOL
+                        <hr>
+                        <h3>User Recipes</h3>
+                            <table class='table table-borderless'>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Recipe Name</th>
+                                        <th scope="col">Option</th>
+                                    </tr>
+                                </thead>
+                                </tbody>
+                        EOL;
+                    foreach ($userRecipes as $ur) {
+                        echo <<<EOL
+                                <tr>
+                                    <th scope="row">$i</th>
+                                    <td>$ur[recipename]</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="/recipe/index.php?action=editPage&recipeid=$ur[recipeid]">Edit</a>
+                                        <a class="btn btn-danger" href="/recipe/index.php?action=deletePage&recipeid=$ur[recipeid]">Delete</a>
+                                    </td>
+                                </tr>
+                            EOL;
+                        $i++;
+                    }
+                    echo <<<EOL
+                            </tbody>
+                        </table>
+                        EOL;
+                }
                 ?>
             </div>
         </div>
